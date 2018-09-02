@@ -46,9 +46,9 @@ def pullResults(maxTimes, riders, segments):
         for segment, leaderBoard in leaderboards.items():
             for effort in leaderBoard.entries:
                 if '2018-09-0' not in str(effort.start_date):
-                    pass
+                    continue
                 if effort.athlete_name in ['Mike H.']:
-                    pass
+                    continue
                 riderEfforts = riders.get(effort.athlete_name, {})
                 riderEfforts[segment] = effort.elapsed_time
                 riders[effort.athlete_name] = riderEfforts
