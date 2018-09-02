@@ -25,7 +25,7 @@ footer = '''  </tbody>
     </body>
 </html>'''
 
-def runPoll(event, context)
+def runPoll(event, context):
     client = Client()
     client.access_token = os.environ.get('strava_access_token', '')
     segments = [('XDS1',15888276), ('XDS2',15781529), ('XDS3',15781535), ('XDS4',15781545), ('XDS5',15781550)]
