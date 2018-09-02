@@ -5,12 +5,12 @@ install: pip install -r requirements.txt -t .
 script: python test_load.py
 deploy:
   provider: lambda
-  function_name: "xduroResultPoll"
-  region: "eu-west-2"
-  role: "arn:aws:iam::164526544718:role/s3_rw"
-  runtime: "python2.7"
-  module_name: 'load'
-  handler_name: "runPoll"
-  access_key_id: "AKIAJXFI2Q42TUVA7VAA"
+  function_name: xduroResultPoll
+  region: eu-west-2
+  role: arn:aws:iam::164526544718:role/s3_rw
+  runtime: python2.7
+  module_name: load
+  handler_name: runPoll
+  access_key_id: AKIAJUHMSP5Z3ETDICZQ
   secret_access_key:
-    secure: QcE2lMkVLYufZbO1ueybw/7FCuYpel6wcCT+LJu/s7xsN970Ylf24QJVJ6CWbT0sTHNvWmQvUWUT0iv0zzSRFxjVhAluJg/gvdykiUpPcyMiun186Yu8THJS4WZTnrWwVfyuyXgGSJ3y2tA9CY7NLDQsPUeqTZpbQDelFnaeX9mrsqaYjthhYaFQsUqYNDYDYIr5xzj/8jnNhv8qhjO6BdpXXeO61DkdWR1baKl4mDYvLeSweSkzVd57rmWYVq+M2bIxNk16S/exi/yVSeyJ7wNhdHxU63H0VtmqOhMd6DOT9IuGmFIA0GkzPgSPS897V9pN53z9tAEg3eRuwU0WTY3p/ZuzMT5lNTI8zUM2f5jaok1a/jW9W1ojKhXIjSR6AJxAlKYw+45yn2k2rjTEa9V2u3o2OTohSF2lACN6w/zYLHrK/ZGlMiRi9iEoWKZre5qwUe8zX2DTYfnWp5qQjFv4ouqEpCXp7ZjROfXMEhHop/Cw91HIzk0ZsuSue9pAVyIIBcw52jpmqJ7BhvF1ey/vDuctWb3G0g77C9m+l63aGekfsd1qqKOuPMax6PpcyoDtj+//wIQtxEa1TI6zKvdniOIU17oUY0W8JpTibpoBYLtJcgoaP27XvMD3OAMtShFiI/S2r7xqwFSjzhALx98KiojsrJQVFHXA9V+m1zg=
+    secure: A/c6hHyVTYubqVfO1tjJxGl2d/fOp8/CTsjV1RNH5CYtI+6xJjBy7l+zbxu4jc0SHYy5IczbpPhDv1JFY+uiCdrv1Yhu0G9DF72rQaXRHtlvur1TZ6yKSRLD1EE4fm4JjyiDbj/I2tyTvHstN57Jh0UYIxB7B1VdyMhxRuvJMZF2bFBMT5Sbf+lb/2x+R6nvwsTo0XuSlFKGvI5spJxvyETqeietoS0fHsFQoBct5GOwMoKLY9GoASgBnV0zv/1DJwWt6fhLaA0qtyq6stkeGdT/Z+mr1zG9MBWHecyg+2NJ4MSCl6HYk7YnDJ49Ph13RcSwXvkscRfw6y8oldDPZqgcONmgB79ZLvl0lS7/r+nai6QdMJMSO7vuUGJE9QRWYcuw8b87aE74Ddis3bZyEvuvzkozHfnfnqaL84mos5wN/L/RC0CjTVHn364I9CggLbCbok6NKFsRDg0p92RuDN4RnTShgRvH085fGO6mS57PkVpRkEKxnmUBSsxCquIzgSQ9UW7gmrQwjIvC2Oa6/FOL8iYztGhU8SUGvqHmhgMr2GlKjHsEyvCYrHfYH2fJYYqWqICiWiHeMiiT6LHkjTINz87ItuVG1dfm5qc9Fni/WHyMsc6yk82VerVkOC/zatiByQzYAKunwWcTGRYHuBvlpWGuEwE79rt5zUHBr5U=
