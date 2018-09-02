@@ -31,6 +31,8 @@ def runPoll(event, context):
     riders = {}
     maxTimes = {}
     pullResults(maxTimes, riders, segments)
+    if not riders:
+        return
     html = formatResults(maxTimes, riders, segments)
     toS3(html)
 
