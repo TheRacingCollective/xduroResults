@@ -1,6 +1,7 @@
 from stravalib.client import Client
 from datetime import timedelta
 import boto3
+import os
 
 header = '''<html>
     <head>
