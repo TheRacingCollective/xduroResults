@@ -30,11 +30,11 @@ def runPoll(event, context):
     segments = [('XDS1',15888276), ('XDS2',15781529), ('XDS3',15781535), ('XDS4',15781545), ('XDS5',15781550)]
     riders = {}
     maxTimes = {}
-    pullResults(client, maxTimes, riders, segments)
+    pullResults(maxTimes, riders, segments)
     html = formatResults(maxTimes, riders, segments)
     toS3(html)
 
-def pullResults(client, maxTimes, riders, segments):
+def pullResults(maxTimes, riders, segments):
     client = Client()
     client.access_token = os.environ.get('strava_access_token', '')
     for club in [238976]:
