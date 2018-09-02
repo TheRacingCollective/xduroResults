@@ -1,0 +1,15 @@
+language: python
+python: '2.7'
+cache: pip
+install: pip install -r requirements.txt -t .
+deploy:
+  provider: lambda
+  function_name: "xduroResultPoll"
+  region: "eu-west-2"
+  role: "arn:aws:iam::164526544718:role/s3_rw"
+  runtime: "python2.7"
+  module_name: 'load'
+  handler_name: "runPoll"
+  access_key_id: "AKIAJXFI2Q42TUVA7VAA"
+  secret_access_key:
+secure: QcE2lMkVLYufZbO1ueybw/7FCuYpel6wcCT+LJu/s7xsN970Ylf24QJVJ6CWbT0sTHNvWmQvUWUT0iv0zzSRFxjVhAluJg/gvdykiUpPcyMiun186Yu8THJS4WZTnrWwVfyuyXgGSJ3y2tA9CY7NLDQsPUeqTZpbQDelFnaeX9mrsqaYjthhYaFQsUqYNDYDYIr5xzj/8jnNhv8qhjO6BdpXXeO61DkdWR1baKl4mDYvLeSweSkzVd57rmWYVq+M2bIxNk16S/exi/yVSeyJ7wNhdHxU63H0VtmqOhMd6DOT9IuGmFIA0GkzPgSPS897V9pN53z9tAEg3eRuwU0WTY3p/ZuzMT5lNTI8zUM2f5jaok1a/jW9W1ojKhXIjSR6AJxAlKYw+45yn2k2rjTEa9V2u3o2OTohSF2lACN6w/zYLHrK/ZGlMiRi9iEoWKZre5qwUe8zX2DTYfnWp5qQjFv4ouqEpCXp7ZjROfXMEhHop/Cw91HIzk0ZsuSue9pAVyIIBcw52jpmqJ7BhvF1ey/vDuctWb3G0g77C9m+l63aGekfsd1qqKOuPMax6PpcyoDtj+//wIQtxEa1TI6zKvdniOIU17oUY0W8JpTibpoBYLtJcgoaP27XvMD3OAMtShFiI/S2r7xqwFSjzhALx98KiojsrJQVFHXA9V+m1zg=
