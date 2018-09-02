@@ -5,7 +5,7 @@ import os
 
 header = '''<html>
     <head>
-        <title>XDuro Results</title>
+        <title>XDURO Results</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     </head>
@@ -27,8 +27,6 @@ footer = '''  </tbody>
 </html>'''
 
 def runPoll(event, context):
-    client = Client()
-    client.access_token = os.environ.get('strava_access_token', '')
     segments = [('XDS1',15888276), ('XDS2',15781529), ('XDS3',15781535), ('XDS4',15781545), ('XDS5',15781550)]
     riders = {}
     maxTimes = {}
@@ -37,6 +35,8 @@ def runPoll(event, context):
     toS3(html)
 
 def pullResults(client, maxTimes, riders, segments):
+    client = Client()
+    client.access_token = os.environ.get('strava_access_token', '')
     for club in [238976]:
         leaderboards = {}
         for _, segment in segments:
