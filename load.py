@@ -42,7 +42,7 @@ def pullResults(maxTimes, riders, segments):
     for club in [238976]:
         leaderboards = {}
         for _, segment in segments:
-            leaderboards[segment] = client.get_segment_leaderboard(segment, timeframe='this_week', top_results_limit=50,
+            leaderboards[segment] = client.get_segment_leaderboard(segment, timeframe='this_month', top_results_limit=50,
                                                                    club_id=club)
             maxTimes[segment] = timedelta(0)
         for segment, leaderBoard in leaderboards.items():
