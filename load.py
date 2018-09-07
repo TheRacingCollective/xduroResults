@@ -47,7 +47,7 @@ def pullResults(maxTimes, riders, segments):
             maxTimes[segment] = timedelta(0)
         for segment, leaderBoard in leaderboards.items():
             for effort in leaderBoard.entries:
-                if '2018-09-0' not in str(effort.start_date):
+                if '2018-10-06' not in str(effort.start_date):
                     continue
                 riderEfforts = riders.get(effort.athlete_name, {})
                 riderEfforts[segment] = effort.elapsed_time
