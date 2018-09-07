@@ -2,6 +2,7 @@ from stravalib.client import Client
 from datetime import timedelta
 import boto3
 import os
+import pytz
 
 header = '''<html>
     <head>
@@ -31,8 +32,6 @@ def runPoll(event, context):
     riders = {}
     maxTimes = {}
     pullResults(maxTimes, riders, segments)
-    if not riders:
-        return
     html = formatResults(maxTimes, riders, segments)
     toS3(html)
 
@@ -47,7 +46,7 @@ def pullResults(maxTimes, riders, segments):
             maxTimes[segment] = timedelta(0)
         for segment, leaderBoard in leaderboards.items():
             for effort in leaderBoard.entries:
-                if '2018-10-06' not in str(effort.start_date):
+                if datetime(2018, 10, 6, tzinfo=pytz.utc) > effort.start_date > datetime(2018, 10, 6, 23, 59, tzinfo=pytz.utc):
                     continue
                 riderEfforts = riders.get(effort.athlete_name, {})
                 riderEfforts[segment] = effort.elapsed_time
