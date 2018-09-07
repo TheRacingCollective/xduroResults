@@ -27,7 +27,7 @@ footer = '''  </tbody>
 </html>'''
 
 def runPoll(event, context):
-    segments = [('XDS1',15888276), ('XDS2',15781529), ('XDS3',15781535), ('XDS4',15781545), ('XDS5',15781550)]
+    segments = [('XDS1',15888276), ('XDS2',15781529), ('XDS3',15781535), ('beMoreMike', 15786203), ('XDS4',15781545), ('XDS5',15781550)]
     riders = {}
     maxTimes = {}
     pullResults(maxTimes, riders, segments)
@@ -48,8 +48,6 @@ def pullResults(maxTimes, riders, segments):
         for segment, leaderBoard in leaderboards.items():
             for effort in leaderBoard.entries:
                 if '2018-09-0' not in str(effort.start_date):
-                    continue
-                if effort.athlete_name in ['Mike H.']:
                     continue
                 riderEfforts = riders.get(effort.athlete_name, {})
                 riderEfforts[segment] = effort.elapsed_time
