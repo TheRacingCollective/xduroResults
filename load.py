@@ -27,7 +27,7 @@ footer = '''  </tbody>
 </html>'''
 
 def runPoll(event, context):
-    segments = [('XDS1',15888276), ('XDS2',15781529), ('XDS3',15781535), ('beMoreMike', 15786203), ('XDS4',15781545), ('XDS5',15781550)]
+    segments = [('XDP-1',15800992), ('XDP-2',15801621), ('XDP-3',15801674), ('XDP-4',15801749), ('XDP-5',15801763)]
     riders = {}
     maxTimes = {}
     pullResults(maxTimes, riders, segments)
