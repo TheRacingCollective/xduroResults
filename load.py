@@ -79,7 +79,7 @@ class XduroResultBuilder(object):
 class ResultsPrinter(object):
 
     header = '''<!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>XDURO Results</title>
     <meta charset="UTF-8">
@@ -90,13 +90,13 @@ class ResultsPrinter(object):
       <thead>
         <tr>
           <th scope="col">Rider</th>
-    '''
+'''
 
     mid = '''        <th scope="col">Total</th>
         </tr>
       </thead>
       <tbody>
-    '''
+'''
 
     footer = '''    </tbody>
     </table>
