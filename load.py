@@ -120,6 +120,6 @@ class ResultsPrinter(object):
                 html += format_string.format(result[segId][0])
             format_string = '          <td>{}</td>\n' if result['total'][1] else '          <td><i>{}</i></td>\n'
             html += format_string.format(result['total'][0])
-        update_time = '{:%Hh%M}'.format(datetime.utcnow().replace(tzinfo=pytz.timezone('Europe/London')))
+        update_time = '{:%Hh%M}'.format(datetime.now().replace(tzinfo=pytz.timezone('Europe/London')))
         html += self.footer.format(update_time)
         return html
