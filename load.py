@@ -26,7 +26,7 @@ class XduroResultBuilder(object):
         self.client = Client()
         self.client.access_token = access_token
         self.club = 238976
-        self.timeFrame = 'today'
+        self.timeFrame = 'this_month'
         self.min_results = 2
 
     def get_results_for(self, segments):
