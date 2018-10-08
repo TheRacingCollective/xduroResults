@@ -72,7 +72,7 @@ class XduroResultBuilder(object):
     def pull_results_from_strava(self, segments):
         results_by_segment = {}
         for _, segment in segments:
-            efforts = self.client.get_segment_leaderboard(segment, timeframe=self.timeFrame, club_id=self.club)
+            efforts = self.client.get_segment_leaderboard(segment, timeframe=self.timeFrame, club_id=self.club, top_results_limit=50)
             results_by_segment[segment] = {e.athlete_name: e.elapsed_time for e in efforts}
         return results_by_segment
 
@@ -101,7 +101,7 @@ class ResultsPrinter(object):
 
     footer = '''    </tbody>
     </table>
-    <i>Classement provisoire, &agrave; {}</i>
+    <!--<i>Classement provisoire, &agrave; {}</i>-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
