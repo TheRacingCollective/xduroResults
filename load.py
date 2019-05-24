@@ -13,7 +13,7 @@ def runPoll(event, context):
     x = XduroResultBuilder(access_token)
     rawResults = x.get_results_for(segments)
     json = convertResultsToJson(rawResults, segments)
-    toS3(html)
+    toS3(json)
 
 def toS3(body):
     import boto3
