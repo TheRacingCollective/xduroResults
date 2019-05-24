@@ -5,20 +5,20 @@ import os
 
 def runPoll(event, context):
     access_token = os.environ.get('strava_access_token', '')
-    s = [('XDP-1', 15800992),
-         ('XDP-2', 15801621),
-         ('XDP-3', 15801674),
-         ('XDP-4', 15801749),
-         ('XDP-5', 15801763)]
+    segments = [('GD-1', 20515464),
+                ('GD-2', 20515384),
+                ('GD-3', 20515676),
+                ('GD-4', 20515238),
+                ('GD-5', 20515175)]
     x = XduroResultBuilder(access_token)
-    r = ResultsPrinter()
-    html = r.format_html(s, x.get_results_for(s))
+    rawResults = x.get_results_for(segments)
+    json = convertResultsToJson(rawResults, segments)
     toS3(html)
 
-def toS3(html):
+def toS3(body):
     import boto3
     s3 = boto3.resource('s3')
-    s3.Object('bikerid.es', 'xduro/index.html').put(Body=html, ContentType='text/html')
+    s3.Object('bikerid.es', 'racingCollective/duro/glen/19-test.json').put(Body=body)
 
 class XduroResultBuilder(object):
 
@@ -26,7 +26,7 @@ class XduroResultBuilder(object):
         self.client = Client()
         self.client.access_token = access_token
         self.club = 238976
-        self.timeFrame = 'this_month'
+        #self.timeFrame = 'this_month'
         self.min_results = 2
 
     def get_results_for(self, segments):
@@ -77,49 +77,15 @@ class XduroResultBuilder(object):
         return results_by_segment
 
 
-class ResultsPrinter(object):
-
-    header = '''<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>XDURO Results</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  </head>
-  <body>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Rider</th>
-'''
-
-    mid = '''        <th scope="col">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-'''
-
-    footer = '''    </tbody>
-    </table>
-    <!--<i>Classement provisoire, &agrave; {}</i>-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-  </body>
-</html>'''
-
-    def format_html(self, segments, results):
-        html = self.header
-        for name, segId in segments:
-            html += '          <th scope="col"><a href="https://www.strava.com/segments/{}">{}</a></th>\n'.format(segId,name)
-        html += self.mid
-        for result in results:
-            html += '        <tr>\n          <th scope=\'row\'>{}</th>\n'.format(result['rider'])
-            for name, segId in segments:
-                format_string = '          <td>{}</td>\n' if result[segId][1] else '          <td><i>{}</i></td>\n'
-                html += format_string.format(result[segId][0])
-            format_string = '          <td>{}</td>\n' if result['total'][1] else '          <td><i>{}</i></td>\n'
-            html += format_string.format(result['total'][0])
-        update_time = '{:%Hh%M}'.format(pytz.utc.localize(datetime.utcnow()).astimezone(pytz.timezone('Europe/London')))
-        html += self.footer.format(update_time)
-        return html
+def convertResultsToJson( results, segments ):
+    from collections import OrderedDict
+    import json
+    allRes = []
+    for rdr in results:
+        rdrRes = OrderedDict()
+        rdrRes['Rider'] = rdr['rider']
+        for segName, segId in segments:
+            rdrRes[segName] = str(rdr[segId][0])
+        rdrRes['Total'] = str(rdr['total'][0])
+        allRes.append(rdrRes)
+    return json.dumps({'data': allRes }, indent=2)
