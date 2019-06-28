@@ -5,10 +5,10 @@ import os
 
 def runPoll(event, context):
     access_token = os.environ.get('strava_access_token', '')
-    segments = [('That was a steep one!', 6121602),
-                ('Climb to Gate', 7150179),
-                ('Lutheredge Bridleway', 3330265),
-                ('Golf Course', 1339475)]
+    segments = [('XDC-1', 6121602),
+                ('XDC-2', 7150179),
+                ('XDC-3', 3330265),
+                ('XDC-4', 1339475)]
     x = XduroResultBuilder(access_token)
     rawResults = x.get_results_for(segments)
     json = convertResultsToJson(rawResults, segments)
