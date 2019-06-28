@@ -17,7 +17,7 @@ def runPoll(event, context):
 def toS3(path, body):
     import boto3
     s3 = boto3.resource('s3')
-    s3.Object('bikerid.es', path).put(Body=body)
+    s3.Object('bikerid.es', path).put(Body=body, ContentType='application/json')
 
 class XduroResultBuilder(object):
 
