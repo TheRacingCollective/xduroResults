@@ -5,14 +5,20 @@ import os
 
 def runPoll(event, context):
     access_token = os.environ.get('strava_access_token', '')
-    segments = [('XDC-1', 6121602),
-                ('XDC-2', 7150179),
-                ('XDC-3', 3330265),
-                ('XDC-4', 1339475)]
+    segments = [('XDW-1',  17110432),
+                ('XDW-2',  17110460),
+                ('XDW-3',  17110464),
+                ('XDW-4',  17110475),
+                ('XDW-5',  17110481),
+                ('XDW-6',  17110484),
+                ('XDW-7',  17110488),
+                ('XDW-8',  17110493),
+                ('XDW-9',  17110497),
+                ('XDW-10', 17110500)]
     x = XduroResultBuilder(access_token)
     rawResults = x.get_results_for(segments)
     json = convertResultsToJson(rawResults, segments)
-    toS3('racingCollective/duro/cots/19.json', json)
+    toS3('racingCollective/duro/wales/19.json', json)
 
 def toS3(path, body):
     import boto3
@@ -25,7 +31,7 @@ class XduroResultBuilder(object):
         self.client = Client()
         self.client.access_token = access_token
         self.club = 238976
-        self.timeFrame = 'today'
+        self.timeFrame = 'this_week'
         self.min_results = 2
 
     def get_results_for(self, segments):
