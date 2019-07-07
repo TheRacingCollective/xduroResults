@@ -91,6 +91,8 @@ def convertResultsToJson( results, segments ):
         rdrRes['Rider'] = rdr['rider']
         for segName, segId in segments:
             rdrRes[segName] = str(rdr[segId][0])
+            if rdrRes[segName] == '0:00:00':
+                rdrRes[segName] = ''
         rdrRes['Total'] = str(rdr['total'][0])
         allRes.append(rdrRes)
     return json.dumps({'data': allRes }, indent=2)
