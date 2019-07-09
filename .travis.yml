@@ -11,7 +11,7 @@ deploy:
   runtime: python2.7
   module_name: load
   handler_name: runPoll
-  timeout: 10
+  timeout: 60
   access_key_id:
     secure: PdysBvyVXuWkcJeBXxL0eZ/FR4ZMRBIL6FvplNjOHQ8tfjicN8W9XOKwUUTKW74pDNPxI54WzwLp9r7LbnLdb9aMzslz2TwKCLxKBF69bIgohqNLLmbO/wtst/4NEXq86RWTvmT+Rjrfp2tfBvcUnVcbCmnIjEWI55X1l91xPaQseKqzTp3KWcrELQAK/IxLzryh9fVcoLZRraBVSHy56k18UtcpPBXOlxX/MMkLa1QgfgzjxtpwUQFRfU4qA+H3aP46YG2Q9pAN7a8bssuThvsp9Tm59QA+ygtQuMlSuMr1y0P6KbL1U7fyjr/F1frtT0PDIBhxcIIqNhGBEiy1bd5mCMtYqzuSO1YFYnfBfANMb18l3SrREIH+dZbrDduC6MLCLhMT4/riVwl4JZ9k8f14dWKu50Ebicr/UZAgCTaCdXuLyUvHWk8pbFcCcBFegIZgCZr8LfS1AETRy8c81ekQ3G/dQwPL+teQF7CpGiHF5yypwaKPlOiRby/dhNQ4f/B9W/GOlY8/kY37+nhGyJfxZb0jCXWZhSD+t+7dFrcX0xIPnO27I9YA8u3cRW4kDqtOlQJHNmmKuEBBKPiVMA0pX1MYZG+0+8LvtEDOzWwOg61isORrGFQ5UBb0DXNU1kpM0TkKZAfsM33vIL5fwmUqvfy/hQ2rKjU7xZbSB5Y=
   secret_access_key:
