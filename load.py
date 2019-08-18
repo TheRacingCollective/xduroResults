@@ -5,20 +5,15 @@ import os
 
 def runPoll(event, context):
     access_token = os.environ.get('strava_access_token', '')
-    segments = [('XDE-1',  18248770),
-                ('XDE-2',  18299403),
-                ('XDE-3',  18248840),
-                ('XDE-4',  18248854),
-                ('XDE-5',  18248892),
-                ('XDE-6',  18299396),
-                ('XDE-7',  18249000),
-                ('XDE-8',  18249027),
-                ('XDE-9',  18249046),
-                ('XDE-10', 18249065)]
+    segments = [('1',  15365306),
+                ('2',  15365311),
+                ('3',  15365315),
+                ('4',  15365318),
+                ('5',  15365321)]
     x = XduroResultBuilder(access_token)
     rawResults = x.get_results_for(segments)
     json = convertResultsToJson(rawResults, segments)
-    toS3('racingCollective/duro/england/19.json', json)
+    toS3('racingCollective/duro/pub/19.json', json)
 
 def toS3(path, body):
     import boto3
