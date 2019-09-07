@@ -85,7 +85,7 @@ def convertResultsToJson( results, segments ):
         rdrRes = OrderedDict()
         rdrRes['Rider'] = rdr['rider']
         for segName, segId in segments:
-            rdrRes[segName] = str(rdr[segId][0])
+            rdrRes[segName] = str(rdr[segId][0]) if rdr[segId][1] else ''
             if rdrRes[segName] == '0:00:00':
                 rdrRes[segName] = ''
         rdrRes['Total'] = str(rdr['total'][0])
