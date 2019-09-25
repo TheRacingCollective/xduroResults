@@ -26,7 +26,7 @@ class XduroResultBuilder(object):
         self.client = Client()
         self.client.access_token = access_token
         self.club = 238976
-        self.timeFrame = 'this_week'
+        self.timeFrame = 'this_month'
         self.min_results = 2
 
     def get_results_for(self, segments):
@@ -85,9 +85,20 @@ def convertResultsToJson( results, segments ):
         rdrRes = OrderedDict()
         rdrRes['Rider'] = rdr['rider']
         for segName, segId in segments:
-            rdrRes[segName] = str(rdr[segId][0])
+            rdrRes[segName] = format_timedelta( rdr[segId][0] if rdr[segId][1] else '' )
             if rdrRes[segName] == '0:00:00':
                 rdrRes[segName] = ''
-        rdrRes['Total'] = str(rdr['total'][0])
+        rdrRes['Total'] = format_timedelta(rdr['total'][0])
         allRes.append(rdrRes)
     return json.dumps({'data': allRes }, indent=2)
+
+def format_timedelta( td ):
+    from datetime import timedelta
+    if not isinstance(td, timedelta):
+        return td
+    if td.days > 30:
+        return 'DNF'
+    hours = (td.days * 24) + (td.seconds / 3600)
+    minutes = (td.seconds % 3600) / 60
+    seconds = td.seconds % 60
+    return '{:02d}H {:02d}M {:02d}S'.format(hours, minutes, seconds)
