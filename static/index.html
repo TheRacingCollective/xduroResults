@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Results</title>
+</head>
+<body>
+ <button onclick="fetch('uploadRequest',{method:'POST'}).then(res => console.log(res))">Upload to Site</button>
+ <button onclick="$('#trialResults').DataTable().ajax.reload()">Reload Table</button>
+ <br />
+ Bookmarklet: <a href="javascript:(()=>{ var csv = '';function getResults(){ var rows = document.getElementsByClassName('table-leaderboard')[0].getElementsByTagName('tr'); for(let i=1;i<rows.length;i++){ csv+=(rows[i].getElementsByClassName('last-child')[0].textContent + ',' + rows[i].getElementsByTagName('a')[0].href.split('/').pop() + ',' +  rows[i].getElementsByTagName('a')[0].text+'\n') } if(document.getElementsByClassName('pagination').length>0){var next = document.getElementsByClassName('next_page')[0].childNodes[0]; if(next.tagName=='A'){ next.click(); setTimeout(getResults,1000) }else{ fetch('https://0.0.0.0:8080/segment/'+this.document.URL.split('/')[4],{method:'POST', body: csv}).then(res => console.log(res)); }}else{ fetch('https://0.0.0.0:8080/segment/'+this.document.URL.split('/')[4],{method:'POST', body: csv}).then(res => console.log(res)); } } document.getElementsByClassName('selected filter-link')[0].click(); setTimeout(getResults,1000)})();">StravaLoad</a>
+<style>
+  body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    color: #8e8e8e;
+}
+</style>
+<link href="//fonts.googleapis.com/css?family=Raleway:400,300,200,700&amp;subset=latin,latin-ext" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" crossorigin="anonymous">
+    <table id="trialResults" class="display" style="width:100%;">
+      <thead>
+        <tr>
+          <th scope="col">Rider</th>
+          <th scope="col">pdNYM-1</th>
+          <th scope="col">pdNYM-2</th>s
+          <th scope="col">pdNYM-3</th>
+          <th scope="col">pdNYM-4</th>
+          <th scope="col">pdNYM-5</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+    <script>
+    jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+    "non-empty-string-asc": function (str1, str2) {
+        if(str1 == str2)
+            return 0;
+        if(str1 == "")
+            return 1;
+        if(str2 == "")
+            return -1;
+        return ((str1 < str2) ? -1 : ((str1 > str2) ? 1 : 0));
+    },
+    "non-empty-string-desc": function (str1, str2) {
+        if(str1 == str2)
+            return 0;
+        if(str1 == "")
+            return 1;
+        if(str2 == "")
+            return -1;
+        return ((str1 < str2) ? 1 : ((str1 > str2) ? -1 : 0));
+    }
+} );
+    $(document).ready(function() {
+        var table = $('#trialResults').DataTable( {
+            "lengthChange": false,
+            "searching": false,
+            "paging": false,
+            "ajax": "results",
+            "columns": [
+                { "data": "R" },
+                { "data": "1" },
+                { "data": "2" },
+                { "data": "3" },
+                { "data": "4" },
+                { "data": "5" },
+                { "data": "T" }
+            ],
+            "columnDefs": [ {type: 'non-empty-string', targets: [1,2,3,4,5,6]} ],
+            "language": { "emptyTable": "No riders yet, check back later." },
+            "bInfo" : false
+        } );
+        setInterval( function () {
+            table.ajax.reload();
+        }, 600000 );
+    } );
+    </script>
+</body>
+</html>
