@@ -1,5 +1,5 @@
 # xduroResults
 
 <code>
-flask run --vert=adhoc
+flask run --cert=adhoc
 </code>
